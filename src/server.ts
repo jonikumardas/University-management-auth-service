@@ -1,7 +1,14 @@
 import mongoose from "mongoose";
-const DatabaseConnection=async()=>{
+import app from "./app";
+import config from "./config/index";
+async function DatabaseConnection(){
     try {
-    await mongoose.connect("mongodb://127.0.0.1:27017/test")
+    await mongoose.connect(config.data_base_url as string);
+    console.log("database connection successful")
+    app.listen(config.port, () => {
+        console.log(`Example app listening on port ${config.port}`)
+      })
     } catch (error) {
         console.log ("data conncetion faild",error)}
 }
+DatabaseConnection()
