@@ -1,7 +1,13 @@
-import express, { NextFunction, Request, Response } from 'express';
-const app= express();
-app.get('/', (req:Request, res:Response,next:NextFunction) => {
+import express, { Application, NextFunction, Request, Response } from 'express'
+import cors from 'cors'
+const app: Application = express()
+
+// medilewere
+app.use(cors())
+// perser
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
+app.get('/', (req: Request, res: any, next: NextFunction) => {
   res.send('Hello World!')
 })
-export default app;
-
+export default app
