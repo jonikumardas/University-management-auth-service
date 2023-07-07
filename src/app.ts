@@ -1,15 +1,18 @@
-import express, { Application, Request, Response } from 'express'
-import cors from 'cors'
-import router from './app/moduls/User/User.route'
-const app: Application = express()
+import cors from 'cors';
+import express, { Application } from 'express';
+import { UserRoutes } from './app/moduls/User/User.route';
+import GlobalErrorHenderler from './midileware/GlobalErrHendeler';
+const app: Application = express();
 // medilewere
-app.use(cors())
+app.use(cors());
 // perser
-app.use(express.json())
-app.use(express.urlencoded({ extended: true }))
-app.get('/', (req: Request, res: Response) => {
-  res.send('Hello World!')
-}),
-  app.use('/api/v1/', router)
-
-export default app
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use('/api/v1/', UserRoutes);
+//  tasting
+// app.get('/',async(req:Request, _res:Response,next:NextFunction) => {
+//   throw new Error("testing error loger")
+//   // Promise.reject((new Error("unhendel rejecttion error")))
+// })
+app.use(GlobalErrorHenderler);
+export default app;

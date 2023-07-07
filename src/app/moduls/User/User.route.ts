@@ -1,5 +1,11 @@
-import express from 'express'
-import { CreateAUser } from './User.controller'
-const router = express.Router()
-router.post('/create-user', CreateAUser)
-export default router
+import express from 'express';
+import validateRequst from '../../../midileware/Validate.requst';
+import { UserControler } from './User.controller';
+import { UserValidation } from './user/User.validation';
+const router = express.Router();
+router.post(
+  '/create-user',
+  validateRequst(UserValidation.createUserZodSchema),
+  UserControler.CreateAUser
+);
+export const UserRoutes = router;
